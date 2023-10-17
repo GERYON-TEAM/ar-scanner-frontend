@@ -1,0 +1,41 @@
+@import url(./colors.css);
+
+* {
+	box-sizing: border-box;
+	font-family: "Roboto", Helvetica, sans-serif;
+}
+
+button,
+a {
+	padding: 0;
+	margin: 0;
+	outline: hidden;
+	border: none;
+	background: none;
+	text-decoration: none;
+}
+
+button:hover,
+button:active,
+a:active,
+a:hover {
+	cursor: pointer;
+}
+
+/* хром, сафари */
+*::-webkit-scrollbar {
+	width: 0;
+}
+
+/* ie 10+ */
+* {
+	-ms-overflow-style: none;
+	overflow: -moz-scrollbars-none;
+}
+
+body,
+html {
+	margin: 0;
+	padding: 0;
+	background-color: #fff;
+}
