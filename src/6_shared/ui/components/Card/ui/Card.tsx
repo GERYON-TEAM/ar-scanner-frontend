@@ -8,7 +8,7 @@ interface P {
 	onClick?: () => void;
 }
 
-export const Card = ({ classname, padding = 20, children, onClick }: P) => {
+export const Card = ({ classname, padding = 16, children, onClick }: P) => {
 	return (
 		<div
 			className={cx(s.card_wrapper, classname)}

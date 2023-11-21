@@ -1,7 +1,8 @@
-import bridge from "@vkontakte/vk-bridge";
-import { app } from "../../config/app-config";
+import bridge, { UserInfo } from "@vkontakte/vk-bridge";
+import { devLog } from "../utils/devLog";
 
-export const getUserInfo = async (id: number) => {
+export const getUserInfo = async (id: number): Promise<IUser> => {
+	//@ts-ignore
 	return await bridge
 		.send("VKWebAppGetUserInfo", {
 			user_id: id,
@@ -11,10 +12,9 @@ export const getUserInfo = async (id: number) => {
 				return data;
 			}
 		})
-		.catch((error) => {
+		.catch((error)  => {
 			// Ошибка
 			console.log(error);
-			return false;
 		});
 };
 
@@ -25,7 +25,7 @@ export const isWebView = () => {
 export const getUserAccessToken = async (scope = "") => {
 	return await bridge
 		.send("VKWebAppGetAuthToken", {
-			app_id: app.app_id,
+			app_id: Number(process.env.APP_ID),
 			scope: scope,
 		})
 		.then((data) => {
@@ -42,7 +42,7 @@ export const getUserAccessToken = async (scope = "") => {
 export const askToJoinGroup = async () => {
 	return await bridge
 		.send("VKWebAppJoinGroup", {
-			group_id: app.group_id,
+			group_id: Number(process.env.GROUP_ID),
 		})
 		.then((data) => {
 			if (data.result) {
@@ -83,4 +83,13 @@ export const storageGet = async (keys: any) => {
 			console.error(error);
 			return null;
 		});
+};
+export const getLaunchParams = async (): Promise<any> => {
+	return await bridge
+		.send("VKWebAppGetLaunchParams", {})
+		.then((data) => {
+			devLog(data)
+			return data;
+		})
+		.catch((e) => console.error(e));
 };
